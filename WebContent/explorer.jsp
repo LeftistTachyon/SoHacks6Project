@@ -2,20 +2,17 @@
 <c:import url="/header.jsp">
 	<c:param name="title" value="Explorer"></c:param>
 </c:import>
-<ul id="infiniteList">
-</ul>
-<script>
-var cnt = 0;
-
-$(window).scroll(function(){
-    if ($(window).scrollTop() == $(document).height()-$(window).height()){
-       $.ajax({
-          url: 'site?action=nextExplorer&num=' + (cnt++),
-          success: function (data) { $('#infiniteList').append(data); },
-          dataType: 'html',
-          method: 'POST'
-       });
-    }
-});
-</script>
-<%@ include file="footer.jsp" %>
+<c:set var="condition" value="${sessionScope.orgList != null || sessionScope.orgList.isEmpty()}"></c:set>
+<c:if test="${condition}">
+	<ul>
+		<c:forEach var="org" items="${sessionScope.orgList}">
+			${org.toString()}<br>
+		</c:forEach>
+		<c:remove var="orgList" scope="session" />
+	</ul>
+</c:if>
+<c:if test="${not condition}">
+	<p style="color: white; text-align: center;">There are no
+		organizations to display.</p>
+</c:if>
+<%@ include file="footer.jsp"%>

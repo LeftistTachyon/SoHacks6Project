@@ -1,30 +1,20 @@
 package com.leftisttachyon.objects;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.Serializable;
-import java.util.Base64;
-
-import javax.imageio.ImageIO;
-
-import org.apache.commons.io.FileUtils;
 
 public class Organization implements Serializable {
 	private static final long serialVersionUID = 1052L;
 	
-	public final BufferedImage organizationImage;
+	public final String description, name, imageURL;
 	
-	public final String description, name;
-	
-	public Organization(BufferedImage organizationImage, String description, String name) {
-		this.organizationImage = organizationImage;
+	public Organization(String imageURL, String description, String name) {
+		this.imageURL = imageURL;
 		this.description = description;
 		this.name = name;
 	}
 	
-	public BufferedImage getImage() {
-		return organizationImage;
+	public String getImageURL() {
+		return imageURL;
 	}
 	
 	public String getDescription() {
@@ -38,11 +28,7 @@ public class Organization implements Serializable {
 	@Override
 	public String toString() {
 		try {
-			File file = File.createTempFile("img", ".png");
-			ImageIO.write(organizationImage, "png", file);
-			byte[] fileContent = FileUtils.readFileToByteArray(file);
-			String encodedString = Base64.getEncoder().encodeToString(fileContent);
-			return "<div class=\"center\"><h3>" + name + "</h3><br><img src=\"" + encodedString + "\" class=\"center\"></img><br><br><p>" + description + "</p></div>";
+			return "<div class=\"center\" style=\"background: white; padding: 13px;\"><h3>" + name + "</h3><br><img src=\"" + imageURL + "\" class=\"center\"></img><br><br><p>" + description + "</p></div>";
 		} catch(Exception e) {
 			return null;
 		}

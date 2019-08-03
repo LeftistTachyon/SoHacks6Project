@@ -30,7 +30,7 @@
 			<nav id="nav">
 				<ul>
 					<li><a href="index.jsp">Homepage</a></li>
-					<li><a href="explorer.jsp">Explorer</a></li>
+					<li><a href="${pageContext.request.contextPath}/site?page=explorer">Explorer</a></li>
 				</ul>
 			</nav>
 		</div>
