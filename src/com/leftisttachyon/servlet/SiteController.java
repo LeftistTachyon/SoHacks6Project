@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.leftisttachyon.blob.BlobModel;
 import com.leftisttachyon.blob.ContainerModel;
@@ -48,32 +49,36 @@ public class SiteController extends HttpServlet {
 			list = new ArrayList<>();
 		}
 	}
-	
+
 	public static void main(String[] args) throws IOException {
 		ArrayList<Organization> list = new ArrayList<>();
-		
-		list.add(new Organization("https://lh6.googleusercontent.com/6umES_4KmKGtmNyaxmZovGYtddZOGxif9VHi88rJcAAd6J5YVaATsPiu2_Tui74dgK3DlSnJVk4eStPIqIDnqe98QgZaFyuX4LHPEvYHLw",
+
+		list.add(new Organization(
+				"https://lh6.googleusercontent.com/6umES_4KmKGtmNyaxmZovGYtddZOGxif9VHi88rJcAAd6J5YVaATsPiu2_Tui74dgK3DlSnJVk4eStPIqIDnqe98QgZaFyuX4LHPEvYHLw",
 				"Sadly, our Texas beaches have been polluted with garbage that ruins the scenery. We host beach clean-ups around the Galveston monthly. Hope to see some of y’all there!",
 				"Clean Up Stewart Beach"));
-		list.add(new Organization("https://lh6.googleusercontent.com/6gxQzTMl4GgEnwKksVeRtu13GRzpkn7MQeR21gN2HtRW_8qNpTb1LZ0WTi13aL6idWtLjyB8ZB1d9biMonAabozm53rFbxJrr4m6nw3vAQ", 
-				"To help feed the San Antonio Community Garden, we are calling on residents to give us their food scraps. Just freeze plant-based food and drop it off in front of the garden. Thanks!", 
+		list.add(new Organization(
+				"https://lh6.googleusercontent.com/6gxQzTMl4GgEnwKksVeRtu13GRzpkn7MQeR21gN2HtRW_8qNpTb1LZ0WTi13aL6idWtLjyB8ZB1d9biMonAabozm53rFbxJrr4m6nw3vAQ",
+				"To help feed the San Antonio Community Garden, we are calling on residents to give us their food scraps. Just freeze plant-based food and drop it off in front of the garden. Thanks!",
 				"Community Composting"));
-		list.add(new Organization("https://lh5.googleusercontent.com/oc0hZYsl_fSvQhhMRJRZ2dLywvkeFn-JdfV4TmYMnYAtkRcjAR6Ujzw2VndmeqzJiszD3K72X65Opk1V0iWoFdonxagTh7gqAsAm8iXXMlj1bf6FYc331az7BSkZPVRJqo5c-bc_", 
-				"We will be hosting a weekly coding camp for middle and elementary students in Maud Marks Library for anyone who wants to learn coding basics. Please come teach if you have experience in any languages!", 
+		list.add(new Organization(
+				"https://lh5.googleusercontent.com/oc0hZYsl_fSvQhhMRJRZ2dLywvkeFn-JdfV4TmYMnYAtkRcjAR6Ujzw2VndmeqzJiszD3K72X65Opk1V0iWoFdonxagTh7gqAsAm8iXXMlj1bf6FYc331az7BSkZPVRJqo5c-bc_",
+				"We will be hosting a weekly coding camp for middle and elementary students in Maud Marks Library for anyone who wants to learn coding basics. Please come teach if you have experience in any languages!",
 				"Youth Coding Camp"));
-		list.add(new Organization("https://lh3.googleusercontent.com/r9K8kT_mMDs4VaPXrGlnhiaXsgsNvl4b-QwJAW6L5m0tTfqeAjw7EU3w_Qimme-Sn2ATKbcnShQlBtoqIKLESY3hJrSbnzq5IcespP-LUcQgeg523XdJQxogewJ_hXHgsvYsgrWi", 
-				"Hey y’all!! We wanted to help give back to the homeless community. Whether you want to cook, serve or bring food, we would appreciate the help!", 
+		list.add(new Organization(
+				"https://lh3.googleusercontent.com/r9K8kT_mMDs4VaPXrGlnhiaXsgsNvl4b-QwJAW6L5m0tTfqeAjw7EU3w_Qimme-Sn2ATKbcnShQlBtoqIKLESY3hJrSbnzq5IcespP-LUcQgeg523XdJQxogewJ_hXHgsvYsgrWi",
+				"Hey y’all!! We wanted to help give back to the homeless community. Whether you want to cook, serve or bring food, we would appreciate the help!",
 				"Commmunity Thanksgiving For The Homeless"));
-		list.add(new Organization("https://lh5.googleusercontent.com/4g3lPQpN46jux5Nn56sxp7J0r7F-t4-QbonVypIMYpl0tQiufi8pdqa-Jw3mqc5Fy4Yj17VxSB6ySgjqQdbbgGtG45zxHf5Nzhk9fF2vhAAIALe1_3iRY-BqZEcCHBMszPyJfw5m", 
-				"Seniors are the most likely demographic to download viruses on computers. Learning basic computer skill will protect their information. Please go to Oak Hill Homes on Sundays to teach Seniors!", 
+		list.add(new Organization(
+				"https://lh5.googleusercontent.com/4g3lPQpN46jux5Nn56sxp7J0r7F-t4-QbonVypIMYpl0tQiufi8pdqa-Jw3mqc5Fy4Yj17VxSB6ySgjqQdbbgGtG45zxHf5Nzhk9fF2vhAAIALe1_3iRY-BqZEcCHBMszPyJfw5m",
+				"Seniors are the most likely demographic to download viruses on computers. Learning basic computer skill will protect their information. Please go to Oak Hill Homes on Sundays to teach Seniors!",
 				"Help Seniors Learn Computer Basics"));
-		
+
 		File temp = File.createTempFile("organizations", ".dat");
-		try(FileOutputStream fos = new FileOutputStream(temp);
-				ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+		try (FileOutputStream fos = new FileOutputStream(temp); ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 			oos.writeObject(list);
 		}
-		
+
 		ContainerModel c = new ContainerModel("organizations");
 		BlobModel b = c.createBlob("organizations.dat");
 		b.uploadFile(temp);
@@ -85,15 +90,17 @@ public class SiteController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("GET");
 		String page = request.getParameter("page");
-		if(page == null) {
+		if (page == null) {
 			response.sendRedirect(request.getContextPath() + "/index.jsp");
 		}
 		switch (page) {
 		case "explorer":
 			request.getSession().setAttribute("orgList", list);
 			request.getRequestDispatcher("/explorer.jsp").forward(request, response);
+			break;
+		case "volunteer":
+			request.getRequestDispatcher("/volunteer.jsp").forward(request, response);
 			break;
 		}
 	}
@@ -104,8 +111,12 @@ public class SiteController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("POST");
-		switch (request.getParameter("actions")) {
+		String toSwitch = request.getParameter("action");
+		if (toSwitch == null) {
+			response.sendRedirect(request.getContextPath() + "/index.jsp");
+			return;
+		}
+		switch (toSwitch) {
 		case "nextExplorer":
 			if (list.isEmpty()) {
 				response.getOutputStream()
@@ -117,7 +128,36 @@ public class SiteController extends HttpServlet {
 			num %= list.size();
 			response.getOutputStream().println(list.get(num).toString());
 			break;
+		case "login":
+			String username = request.getParameter("username"), password = request.getParameter("passowrd");
+			if(username.equals("jen-li") && password.equals("password123")) {
+				String redirectTo = (String) request.getSession().getAttribute("redirectTo");
+
+				request.getSession().invalidate();
+
+				HttpSession newSession = request.getSession(true);
+				newSession.setMaxInactiveInterval(600);
+				newSession.setAttribute("username", username);
+				
+				if (redirectTo == null) {
+					response.sendRedirect(request.getContextPath() + "/member?page=feed");
+				} else {
+					request.getSession().removeAttribute("redirectTo");
+					response.sendRedirect(redirectTo);
+				}
+			} else {
+				response.sendRedirect(request.getContextPath() + "/login.jsp");
+			}
+			break;
 		}
+	}
+	
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		super.destroy();
+		
+		blob.close();
 	}
 
 }

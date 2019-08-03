@@ -2,13 +2,17 @@
 <c:import url="/header.jsp">
 	<c:param name="title" value="Explorer"></c:param>
 </c:import>
-<c:set var="condition" value="${sessionScope.orgList != null || sessionScope.orgList.isEmpty()}"></c:set>
+<c:set var="condition"
+	value="${sessionScope.orgList != null || sessionScope.orgList.isEmpty()}"></c:set>
 <c:if test="${condition}">
 	<ul>
 		<c:forEach var="org" items="${sessionScope.orgList}">
-			${org.toString()}<br>
+			<div class="center" style="background: white; padding: 13px;">
+				${org.toString()}
+				<a class="button" href="${pageContext.request.contextPath}/site?page=volunteer&name=${org.name}">Volunteer!</a>
+			</div>
+			<br>
 		</c:forEach>
-		<c:remove var="orgList" scope="session" />
 	</ul>
 </c:if>
 <c:if test="${not condition}">

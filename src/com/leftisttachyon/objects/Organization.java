@@ -28,7 +28,7 @@ public class Organization implements Serializable {
 	@Override
 	public String toString() {
 		try {
-			return "<div class=\"center\" style=\"background: white; padding: 13px;\"><h3>" + name + "</h3><br><img src=\"" + imageURL + "\" class=\"center\"></img><br><br><p>" + description + "</p></div>";
+			return "<h3>" + name + "</h3><br><img src=\"" + imageURL + "\" class=\"center\"></img><br><br><p>" + description + "</p>";
 		} catch(Exception e) {
 			return null;
 		}
