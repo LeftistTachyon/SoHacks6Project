@@ -20,7 +20,7 @@ public class MemberServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String page = request.getParameter("page");
 		if(page == null) {
-			response.sendRedirect(request.getContextPath() + "/feed.jsp");
+			response.sendRedirect(request.getContextPath() + "/member?page=feed");
 		}
 		
 		switch(page) {
